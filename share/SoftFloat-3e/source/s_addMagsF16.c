@@ -163,7 +163,7 @@ float16_t softFloat_addMagsF16( uint_fast16_t uiA, uint_fast16_t uiB )
                     softFloat_flag_overflow | softFloat_flag_inexact );
             }
         }
-#ifdef softFloat_ROUND_ODD
+#ifdef SOFTFLOAT_ROUND_ODD
         else if ( roundingMode == softFloat_round_odd ) {
             uiZ |= 1;
         }

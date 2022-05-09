@@ -39,7 +39,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "internals.h"
 #include "softFloat.h"
 
-#ifdef softFloat_FAST_INT64
+#ifdef SOFTFLOAT_FAST_INT64
 
 void ui64_to_extF80M( uint64_t a, extFloat80_t *zPtr )
 {

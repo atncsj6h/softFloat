@@ -2,7 +2,6 @@
 #
 include_guard( GLOBAL )
 
-#- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 #
 set( softFloat_PRIMITIVES
   src/s_add128.c
@@ -52,7 +51,6 @@ set( softFloat_PRIMITIVES
 
 )
 
-#- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 #
 set( softFloat_SPECIALISED
   src/8086-SSE/s_commonNaNToF128UI.c
@@ -68,7 +66,6 @@ set( softFloat_SPECIALISED
   src/8086-SSE/softFloat_raiseFlags.c
 )
 
-#- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 #
 set( softFloat_OTHER
   src/f128_add.c

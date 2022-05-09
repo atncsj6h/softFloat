@@ -11,9 +11,9 @@ message( STATUS "Processing     '${CMAKE_CURRENT_LIST_FILE}'" )
 
 #- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 #
-if( CMAKE_VERSION VERSION_LESS  3.20 )
+if( CMAKE_VERSION VERSION_LESS  3.22 )
   message( FATAL_ERROR "
- CMake '3.20' or higher is required,
+ CMake '3.22' or higher is required,
  You are running '${CMAKE_VERSION}'" )
 endif()
 cmake_minimum_required( VERSION ${CMAKE_VERSION} )
@@ -55,22 +55,12 @@ if( ( "${_b}" STREQUAL "${_s}" ) OR
  remove file 'CMakeCache.txt' and directory 'CMakeFiles' " )
 endif( )
 
-#- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-#
-set( SYSTEM_NAME "${CMAKE_HOST_SYSTEM_NAME}" )
-string( TOUPPER "${SYSTEM_NAME}" SYSTEM_NAME_UC  )
-set( "${SYSTEM_NAME_UC}" 1 )
-add_compile_definitions(
-  SYSTEM_NAME="${SYSTEM_NAME}"
-  ${SYSTEM_NAME_UC}
-)
-
 #[[ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   must come before the project command
-  lowest macOS supported 10.12 sierra
+  lowest macOS supported 10.13 High Sierra
 #]]
 if( APPLE AND BUILD_OSX_UNIVERSAL_BINARIES )
-  set( CMAKE_OSX_DEPLOYMENT_TARGET 10.12 CACHE STRING  "" FORCE)
+  set( CMAKE_OSX_DEPLOYMENT_TARGET 10.13 CACHE STRING  "" FORCE)
   set( CMAKE_C_FLAGS   "-Wunguarded-availability" )
   set( CMAKE_CXX_FLAGS "-Wunguarded-availability" )
 endif()
@@ -87,6 +77,17 @@ project( ${PROJECT}
 set( VERSION_STRING "${VERSION}" )
 set( VERSION_STRING "${VERSION_STRING}-${CMAKE_SYSTEM_PROCESSOR}" )
 
+#- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+#
+set( SYSTEM_NAME "${CMAKE_HOST_SYSTEM_NAME}" )
+string( TOUPPER "${SYSTEM_NAME}" SYSTEM_NAME_UC  )
+set( "${SYSTEM_NAME_UC}" 1 )
+add_compile_definitions(
+  SYSTEM_NAME="${SYSTEM_NAME}"
+  ${SYSTEM_NAME_UC}
+)
+
+#- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 #
 if( APPLE AND BUILD_OSX_UNIVERSAL_BINARIES )
   set( CMAKE_OSX_ARCHITECTURES arm64 x86_64 )
@@ -100,7 +101,8 @@ message( STATUS "Building ${PROJECT} ${VERSION_STRING}" )
 add_compile_definitions(
   VERSION_STRING="${VERSION_STRING}" )
 
-# bits
+#- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+# arch/bits
 math( EXPR HOST_ARCH "8 * ${CMAKE_SIZEOF_VOID_P}" OUTPUT_FORMAT DECIMAL)
 if( NOT ( HOST_ARCH MATCHES 64 ) )
   message( SEND_ERROR "
@@ -108,6 +110,7 @@ if( NOT ( HOST_ARCH MATCHES 64 ) )
 endif()
 # message( STATUS "Building ${PROJECT} ${VERSION_STRING} '${HOST_ARCH}-bits'" )
 
+#- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # endian-ness
 if( NOT ( CMAKE_C_BYTE_ORDER STREQUAL "LITTLE_ENDIAN" ) )
   message( SEND_ERROR "
@@ -118,7 +121,7 @@ endif()
 # cleanup the CMAKE_SYSTEM_PREFIX_PATH
 if( APPLE )
   list(REMOVE_DUPLICATES CMAKE_SYSTEM_PREFIX_PATH )
-  set( XPATHS /opt/homebrew /opt/macports /usr/X11R6 /usr/pkg /opt /sw /opt/local )
+  set( XPATHS /opt/homebrew /opt/macports /usr/X11R6 /usr/pkg /opt /sw )
   foreach( xpath ${XPATHS} )
     list( REMOVE_ITEM CMAKE_SYSTEM_PREFIX_PATH ${xpath} )
   endforeach()
@@ -169,51 +172,42 @@ if( WITH_CCACHE )
 endif()
 
 #- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-# we assume that the system has the ISO/IEC 9899:1999 (C99) headers
-# and terminate if not
 include( CheckIncludeFile )
 include( checkHeader )
 
-check_header( required
-  # ISO/IEC 9899:1990 (C89, C90) headers
-  assert.h  ctype.h errno.h   float.h   limits.h
-  locale.h  math.h  setjmp.h  signal.h  stdarg.h
-  stddef.h  stdio.h stdlib.h  string.h  time.h
+#- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+# we assume that the system has the ISO/IEC headers and terminate if not
+include( isoHeaders )
 
-  # ISO/IEC 9899:1990/Amd.1:1995 headers
-  iso646.h  wchar.h wctype.h
-
-  # ISO/IEC 9899:1999 (C99) headers
-  complex.h fenv.h  inttypes.h  stdbool.h stdint.h
-  tgmath.h
-)
-
-check_header(
-  # ISO/IEC 9899:2011 (C11) headers
-  # threads.h and uchar.h migh be missing
-  stdalign.h  stdatomic.h stdnoreturn.h
-  threads.h uchar.h
-)
-
-
+#- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # check for __int128_t
 include( checkType )
 type_is_defined( __int128_t )
 type_get_size( __int128_t )
 
-# just to warn about some odd definitions
-include( haveBrokenSizeMax )
-include( fastTypesLengthsMatch )
-
-# attributes
-include( inlineAttr )
-include( threadLocalAttr )
-include( weakAttr )
+#- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+# functions
+include( CheckFunctionExists )
+include( checkFunction )
 
 # the builtins
 include( __builtin_bswap )
 include( __builtin_clz )
 
+#
+
+#- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+# just to warn about some odd definitions
+include( haveBrokenSizeMax )
+include( fastTypesLengthsMatch )
+
+#- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+# attributes
+include( inlineAttr )
+include( threadLocalAttr )
+include( weakAttr )
+
+#- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # the compiler flags
 include( defaultCompilerFlags )
 
@@ -242,6 +236,16 @@ if( EXISTS ${CMAKE_SOURCE_DIR}/platform.h.in )
 endif()
 
 #- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+#   config.h
+if( EXISTS ${CMAKE_SOURCE_DIR}/config.h.in )
+  configure_file( ${CMAKE_SOURCE_DIR}/config.h.in
+    ${CMAKE_BINARY_DIR}/config.h
+  )
+  add_compile_definitions(
+    HAVE_CONFIG_H )
+endif()
+
+#- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # sources
 include( ${PROJECT}_SRCS )
 
@@ -263,6 +267,10 @@ include( buildLibraries )
 
 foreach( library  ${${PROJECT}_PROVIDES} )
 
+  if( BUILD_SHARED OR BUILD_STATIC )
+    build_headers( ${library} )
+  endif()
+
   build_objects( ${library} )
 
   if( BUILD_SHARED )
@@ -273,9 +281,6 @@ foreach( library  ${${PROJECT}_PROVIDES} )
     build_static_library( ${library} )
   endif()
 
-  if( BUILD_SHARED OR BUILD_STATIC )
-    build_headers( ${library} )
-  endif()
 endforeach()
 
 #- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -

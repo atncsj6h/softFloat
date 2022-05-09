@@ -65,7 +65,7 @@ enum {
 
 /*----------------------------------------------------------------------------
 | Software floating-point rounding mode.  (Mode "odd" is supported only if
-| softFloat is compiled with macro 'softFloat_ROUND_ODD' defined.)
+| softFloat is compiled with macro 'SOFTFLOAT_ROUND_ODD' defined.)
 *----------------------------------------------------------------------------*/
 extern THREAD_LOCAL uint_fast8_t softFloat_roundingMode;
 enum {
@@ -100,7 +100,7 @@ void softFloat_raiseFlags( uint_fast8_t );
 float16_t ui32_to_f16( uint32_t );
 float32_t ui32_to_f32( uint32_t );
 float64_t ui32_to_f64( uint32_t );
-#ifdef softFloat_FAST_INT64
+#ifdef SOFTFLOAT_FAST_INT64
 extFloat80_t ui32_to_extF80( uint32_t );
 float128_t ui32_to_f128( uint32_t );
 #endif
@@ -109,7 +109,7 @@ void ui32_to_f128M( uint32_t, float128_t * );
 float16_t ui64_to_f16( uint64_t );
 float32_t ui64_to_f32( uint64_t );
 float64_t ui64_to_f64( uint64_t );
-#ifdef softFloat_FAST_INT64
+#ifdef SOFTFLOAT_FAST_INT64
 extFloat80_t ui64_to_extF80( uint64_t );
 float128_t ui64_to_f128( uint64_t );
 #endif
@@ -118,7 +118,7 @@ void ui64_to_f128M( uint64_t, float128_t * );
 float16_t i32_to_f16( int32_t );
 float32_t i32_to_f32( int32_t );
 float64_t i32_to_f64( int32_t );
-#ifdef softFloat_FAST_INT64
+#ifdef SOFTFLOAT_FAST_INT64
 extFloat80_t i32_to_extF80( int32_t );
 float128_t i32_to_f128( int32_t );
 #endif
@@ -127,7 +127,7 @@ void i32_to_f128M( int32_t, float128_t * );
 float16_t i64_to_f16( int64_t );
 float32_t i64_to_f32( int64_t );
 float64_t i64_to_f64( int64_t );
-#ifdef softFloat_FAST_INT64
+#ifdef SOFTFLOAT_FAST_INT64
 extFloat80_t i64_to_extF80( int64_t );
 float128_t i64_to_f128( int64_t );
 #endif
@@ -147,7 +147,7 @@ int_fast32_t f16_to_i32_r_minMag( float16_t, bool );
 int_fast64_t f16_to_i64_r_minMag( float16_t, bool );
 float32_t f16_to_f32( float16_t );
 float64_t f16_to_f64( float16_t );
-#ifdef softFloat_FAST_INT64
+#ifdef SOFTFLOAT_FAST_INT64
 extFloat80_t f16_to_extF80( float16_t );
 float128_t f16_to_f128( float16_t );
 #endif
@@ -182,7 +182,7 @@ int_fast32_t f32_to_i32_r_minMag( float32_t, bool );
 int_fast64_t f32_to_i64_r_minMag( float32_t, bool );
 float16_t f32_to_f16( float32_t );
 float64_t f32_to_f64( float32_t );
-#ifdef softFloat_FAST_INT64
+#ifdef SOFTFLOAT_FAST_INT64
 extFloat80_t f32_to_extF80( float32_t );
 float128_t f32_to_f128( float32_t );
 #endif
@@ -217,7 +217,7 @@ int_fast32_t f64_to_i32_r_minMag( float64_t, bool );
 int_fast64_t f64_to_i64_r_minMag( float64_t, bool );
 float16_t f64_to_f16( float64_t );
 float32_t f64_to_f32( float64_t );
-#ifdef softFloat_FAST_INT64
+#ifdef SOFTFLOAT_FAST_INT64
 extFloat80_t f64_to_extF80( float64_t );
 float128_t f64_to_f128( float64_t );
 #endif
@@ -248,7 +248,7 @@ extern THREAD_LOCAL uint_fast8_t extF80_roundingPrecision;
 /*----------------------------------------------------------------------------
 | 80-bit extended double-precision floating-point operations.
 *----------------------------------------------------------------------------*/
-#ifdef softFloat_FAST_INT64
+#ifdef SOFTFLOAT_FAST_INT64
 uint_fast32_t extF80_to_ui32( extFloat80_t, uint_fast8_t, bool );
 uint_fast64_t extF80_to_ui64( extFloat80_t, uint_fast8_t, bool );
 int_fast32_t extF80_to_i32( extFloat80_t, uint_fast8_t, bool );
@@ -308,7 +308,7 @@ bool extF80M_isSignalingNaN( const extFloat80_t * );
 /*----------------------------------------------------------------------------
 | 128-bit (quadruple-precision) floating-point operations.
 *----------------------------------------------------------------------------*/
-#ifdef softFloat_FAST_INT64
+#ifdef SOFTFLOAT_FAST_INT64
 uint_fast32_t f128_to_ui32( float128_t, uint_fast8_t, bool );
 uint_fast64_t f128_to_ui64( float128_t, uint_fast8_t, bool );
 int_fast32_t f128_to_i32( float128_t, uint_fast8_t, bool );

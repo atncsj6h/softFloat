@@ -61,7 +61,7 @@ int_fast32_t
         if (
             sign
                 ? (roundingMode == softFloat_round_min)
-#ifdef softFloat_ROUND_ODD
+#ifdef SOFTFLOAT_ROUND_ODD
                       || (roundingMode == softFloat_round_odd)
 #endif
                 : (roundingMode == softFloat_round_max)
@@ -82,7 +82,7 @@ int_fast32_t
     z = uZ.i;
     if ( z && ((z < 0) ^ sign) ) goto invalid;
     if ( roundBits ) {
-#ifdef softFloat_ROUND_ODD
+#ifdef SOFTFLOAT_ROUND_ODD
         if ( roundingMode == softFloat_round_odd ) z |= 1;
 #endif
         if ( exact ) softFloat_exceptionFlags |= softFloat_flag_inexact;

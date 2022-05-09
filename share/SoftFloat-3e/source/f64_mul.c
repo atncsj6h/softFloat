@@ -57,7 +57,7 @@ float64_t f64_mul( float64_t a, float64_t b )
     uint_fast64_t magBits;
     struct exp16_sig64 normExpSig;
     int_fast16_t expZ;
-#ifdef softFloat_FAST_INT64
+#ifdef SOFTFLOAT_FAST_INT64
     struct uint128 sig128Z;
 #else
     uint32_t sig128Z[4];
@@ -109,7 +109,7 @@ float64_t f64_mul( float64_t a, float64_t b )
     expZ = expA + expB - 0x3FF;
     sigA = (sigA | UINT64_C( 0x0010000000000000 ))<<10;
     sigB = (sigB | UINT64_C( 0x0010000000000000 ))<<11;
-#ifdef softFloat_FAST_INT64
+#ifdef SOFTFLOAT_FAST_INT64
     sig128Z = softFloat_mul64To128( sigA, sigB );
     sigZ = sig128Z.v64 | (sig128Z.v0 != 0);
 #else

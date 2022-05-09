@@ -41,7 +41,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "specialize.h"
 #include "softFloat.h"
 
-#ifdef softFloat_FAST_INT64
+#ifdef SOFTFLOAT_FAST_INT64
 
 void f64_to_f128M( float64_t a, float128_t *zPtr )
 {

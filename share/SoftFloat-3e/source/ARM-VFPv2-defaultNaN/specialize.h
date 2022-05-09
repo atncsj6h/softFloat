@@ -194,10 +194,10 @@ uint_fast64_t
 *----------------------------------------------------------------------------*/
 #define softFloat_isSigNaNExtF80UI( uiA64, uiA0 ) ((((uiA64) & 0x7FFF) == 0x7FFF) && ! ((uiA0) & UINT64_C( 0x4000000000000000 )) && ((uiA0) & UINT64_C( 0x3FFFFFFFFFFFFFFF )))
 
-#ifdef softFloat_FAST_INT64
+#ifdef SOFTFLOAT_FAST_INT64
 
 /*----------------------------------------------------------------------------
-| The following functions are needed only when 'softFloat_FAST_INT64' is
+| The following functions are needed only when 'SOFTFLOAT_FAST_INT64' is
 | defined.
 *----------------------------------------------------------------------------*/
 
@@ -305,7 +305,7 @@ struct uint128
 #else
 
 /*----------------------------------------------------------------------------
-| The following functions are needed only when 'softFloat_FAST_INT64' is not
+| The following functions are needed only when 'SOFTFLOAT_FAST_INT64' is not
 | defined.
 *----------------------------------------------------------------------------*/
 

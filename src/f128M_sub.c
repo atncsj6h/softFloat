@@ -40,7 +40,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "internals.h"
 #include "softFloat.h"
 
-#ifdef softFloat_FAST_INT64
+#ifdef SOFTFLOAT_FAST_INT64
 
 void
  f128M_sub( const float128_t *aPtr, const float128_t *bPtr, float128_t *zPtr )

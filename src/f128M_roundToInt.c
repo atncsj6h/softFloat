@@ -41,7 +41,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "specialize.h"
 #include "softFloat.h"
 
-#ifdef softFloat_FAST_INT64
+#ifdef SOFTFLOAT_FAST_INT64
 
 void
  f128M_roundToInt(
@@ -113,7 +113,7 @@ void
          case softFloat_round_max:
             if ( !sign ) goto mag1;
             break;
-#ifdef softFloat_ROUND_ODD
+#ifdef SOFTFLOAT_ROUND_ODD
          case softFloat_round_odd:
             goto mag1;
 #endif
@@ -195,7 +195,7 @@ void
             ) {
                 wordZ += bit;
                 carry = (wordZ < wordA);
-#ifdef softFloat_ROUND_ODD
+#ifdef SOFTFLOAT_ROUND_ODD
             } else if ( roundingMode == softFloat_round_odd ) {
                 wordZ |= bit;
 #endif

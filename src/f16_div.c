@@ -59,7 +59,7 @@ float16_t f16_div( float16_t a, float16_t b )
     bool signZ;
     struct exp8_sig16 normExpSig;
     int_fast8_t expZ;
-#ifdef softFloat_FAST_DIV32TO16
+#ifdef SOFTFLOAT_FAST_DIV32TO16
     uint_fast32_t sig32A;
     uint_fast16_t sigZ;
 #else
@@ -120,7 +120,7 @@ float16_t f16_div( float16_t a, float16_t b )
     expZ = expA - expB + 0xE;
     sigA |= 0x0400;
     sigB |= 0x0400;
-#ifdef softFloat_FAST_DIV32TO16
+#ifdef SOFTFLOAT_FAST_DIV32TO16
     if ( sigA < sigB ) {
         --expZ;
         sig32A = (uint_fast32_t) sigA<<15;

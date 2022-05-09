@@ -41,7 +41,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "specialize.h"
 #include "softFloat.h"
 
-#ifdef softFloat_FAST_INT64
+#ifdef SOFTFLOAT_FAST_INT64
 
 void
  extF80M_roundToInt(
@@ -110,7 +110,7 @@ void
          case softFloat_round_max:
             if ( !signUI64 ) goto mag1;
             break;
-#ifdef softFloat_ROUND_ODD
+#ifdef SOFTFLOAT_ROUND_ODD
          case softFloat_round_odd:
             goto mag1;
 #endif
@@ -160,7 +160,7 @@ void
         sigZ = UINT64_C( 0x8000000000000000 );
     }
     if ( sigZ != sigA ) {
-#ifdef softFloat_ROUND_ODD
+#ifdef SOFTFLOAT_ROUND_ODD
         if ( roundingMode == softFloat_round_odd ) sigZ |= lastBitMask;
 #endif
         if ( exact ) softFloat_exceptionFlags |= softFloat_flag_inexact;

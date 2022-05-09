@@ -124,7 +124,7 @@ float128_t
              case softFloat_round_max:
                 if ( !uiZ.v64 ) uiZ.v64 = packToF128UI64( 0, 0x3FFF, 0 );
                 break;
-#ifdef softFloat_ROUND_ODD
+#ifdef SOFTFLOAT_ROUND_ODD
              case softFloat_round_odd:
                 uiZ.v64 |= packToF128UI64( 0, 0x3FFF, 0 );
                 break;
@@ -156,7 +156,7 @@ float128_t
         lastBitMask0 = 0;
     }
     if ( (uiZ.v64 != uiA64) || (uiZ.v0 != uiA0) ) {
-#ifdef softFloat_ROUND_ODD
+#ifdef SOFTFLOAT_ROUND_ODD
         if ( roundingMode == softFloat_round_odd ) {
             uiZ.v64 |= lastBitMask64;
             uiZ.v0  |= lastBitMask0;

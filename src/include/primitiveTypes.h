@@ -39,7 +39,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include <stdint.h>
 
-#ifdef softFloat_FAST_INT64
+#ifdef SOFTFLOAT_FAST_INT64
 
 #if __BYTE_ORDER__ == __ORDER_LITTLE_ENDIAN__
 struct uint128 { uint64_t v0, v64; };

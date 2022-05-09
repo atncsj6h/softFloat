@@ -46,7 +46,7 @@ union ui16_f16 { uint16_t ui; float16_t f; };
 union ui32_f32 { uint32_t ui; float32_t f; };
 union ui64_f64 { uint64_t ui; float64_t f; };
 
-#ifdef softFloat_FAST_INT64
+#ifdef SOFTFLOAT_FAST_INT64
 union extF80M_extF80 { struct extFloat80M fM; extFloat80_t f; };
 union ui128_f128 { struct uint128 ui; float128_t f; };
 #endif
@@ -60,7 +60,7 @@ enum {
 *----------------------------------------------------------------------------*/
 uint_fast32_t softFloat_roundToUI32( bool, uint_fast64_t, uint_fast8_t, bool );
 
-#ifdef softFloat_FAST_INT64
+#ifdef SOFTFLOAT_FAST_INT64
 uint_fast64_t
  softFloat_roundToUI64(
      bool, uint_fast64_t, uint_fast64_t, uint_fast8_t, bool );
@@ -70,7 +70,7 @@ uint_fast64_t softFloat_roundMToUI64( bool, uint32_t *, uint_fast8_t, bool );
 
 int_fast32_t softFloat_roundToI32( bool, uint_fast64_t, uint_fast8_t, bool );
 
-#ifdef softFloat_FAST_INT64
+#ifdef SOFTFLOAT_FAST_INT64
 int_fast64_t
  softFloat_roundToI64(
      bool, uint_fast64_t, uint_fast64_t, uint_fast8_t, bool );
@@ -149,7 +149,7 @@ float64_t
 
 #define isNaNExtF80UI( a64, a0 ) ((((a64) & 0x7FFF) == 0x7FFF) && ((a0) & UINT64_C( 0x7FFFFFFFFFFFFFFF )))
 
-#ifdef softFloat_FAST_INT64
+#ifdef SOFTFLOAT_FAST_INT64
 
 /*----------------------------------------------------------------------------
 *----------------------------------------------------------------------------*/

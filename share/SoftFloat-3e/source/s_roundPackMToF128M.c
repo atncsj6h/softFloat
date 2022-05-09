@@ -129,7 +129,7 @@ void
     uj = extSigPtr[indexWord( 5, 1 )];
     if ( sigExtra ) {
         softFloat_exceptionFlags |= softFloat_flag_inexact;
-#ifdef softFloat_ROUND_ODD
+#ifdef SOFTFLOAT_ROUND_ODD
         if ( roundingMode == softFloat_round_odd ) {
             uj |= 1;
             goto noIncrementPackReturn;

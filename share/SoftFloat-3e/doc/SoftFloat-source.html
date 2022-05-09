@@ -470,7 +470,7 @@ Depending on the compiler, possible valid definitions of this macro include
 <CODE>_Thread_local</CODE> and <CODE>__thread</CODE>.
 </DL>
 <DL>
-<DT><CODE>softFloat_ROUND_ODD</CODE>
+<DT><CODE>SOFTFLOAT_ROUND_ODD</CODE>
 <DD>
 Can be defined to enable support for optional rounding mode
 <CODE>softFloat_round_odd</CODE>.
@@ -486,7 +486,7 @@ If this macro is not defined or is defined to a value less <NOBR>than 1</NOBR>
 The maximum effective value is no higher <NOBR>than 5</NOBR>.
 Defining this macro to a value greater than 5 is the same as defining it
 <NOBR>to 5</NOBR>.
-<DT><CODE>softFloat_FAST_INT64</CODE>
+<DT><CODE>SOFTFLOAT_FAST_INT64</CODE>
 <DD>
 Can be defined to indicate that the build target&rsquo;s implementation of
 <NOBR>64-bit</NOBR> arithmetic is efficient.
@@ -495,14 +495,14 @@ For very small microprocessors whose buses and registers are <NOBR>8-bit</NOBR>
 or <NOBR>16-bit</NOBR> in size, this macro should usually not be defined.
 Whether this macro should be defined for a <NOBR>32-bit</NOBR> processor may
 depend on the target machine and the applications that will use softFloat.
-<DT><CODE>softFloat_FAST_DIV32TO16</CODE>
+<DT><CODE>SOFTFLOAT_FAST_DIV32TO16</CODE>
 <DD>
 Can be defined to indicate that the target&rsquo;s division operator
 <NOBR>in C</NOBR> (written as <CODE>/</CODE>) is reasonably efficient for
 dividing a <NOBR>32-bit</NOBR> unsigned integer by a <NOBR>16-bit</NOBR>
 unsigned integer.
 Setting this macro may affect the performance of function <CODE>f16_div</CODE>.
-<DT><CODE>softFloat_FAST_DIV64TO32</CODE>
+<DT><CODE>SOFTFLOAT_FAST_DIV64TO32</CODE>
 <DD>
 Can be defined to indicate that the target&rsquo;s division operator
 <NOBR>in C</NOBR> (written as <CODE>/</CODE>) is reasonably efficient for
@@ -537,9 +537,9 @@ be better located in the target&rsquo;s Makefile (or its equivalent).
 In the <CODE>build</CODE> directory, two <CODE>template</CODE> subdirectories
 provide models for new target directories.
 Two different templates exist because different functions are needed in the
-softFloat library depending on whether macro <CODE>softFloat_FAST_INT64</CODE>
+softFloat library depending on whether macro <CODE>SOFTFLOAT_FAST_INT64</CODE>
 is defined.
-If macro <CODE>softFloat_FAST_INT64</CODE> will be defined,
+If macro <CODE>SOFTFLOAT_FAST_INT64</CODE> will be defined,
 <NOBR><CODE>template-FAST_INT64</CODE></NOBR> is the template to use;
 otherwise, <NOBR><CODE>template-not-FAST_INT64</CODE></NOBR> is the appropriate
 template.
@@ -663,7 +663,7 @@ As supplied, <CODE>softFloat.h</CODE> depends on another header,
 must also be visible to the programmer&rsquo;s compiler.
 <LI>
 More troubling, at the time <CODE>softFloat.h</CODE> is included in a C source
-file, macros <CODE>softFloat_FAST_INT64</CODE> and <CODE>THREAD_LOCAL</CODE>
+file, macros <CODE>SOFTFLOAT_FAST_INT64</CODE> and <CODE>THREAD_LOCAL</CODE>
 must be defined, or not defined, consistent with how these macro were defined
 when the softFloat library was built.
 </UL>

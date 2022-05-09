@@ -50,7 +50,7 @@ uint_fast64_t f16_to_ui64( float16_t a, uint_fast8_t roundingMode, bool exact )
     uint_fast16_t frac;
     uint_fast32_t sig32;
     int_fast8_t shiftDist;
-#ifndef softFloat_FAST_INT64
+#ifndef SOFTFLOAT_FAST_INT64
     uint32_t extSig[3];
 #endif
 
@@ -81,7 +81,7 @@ uint_fast64_t f16_to_ui64( float16_t a, uint_fast8_t roundingMode, bool exact )
         shiftDist = exp - 0x0D;
         if ( 0 < shiftDist ) sig32 <<= shiftDist;
     }
-#ifdef softFloat_FAST_INT64
+#ifdef SOFTFLOAT_FAST_INT64
     return
         softFloat_roundToUI64(
             sign, sig32>>12, (uint_fast64_t) sig32<<52, roundingMode, exact );

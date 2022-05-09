@@ -96,7 +96,7 @@ float64_t
     sig = (sig + roundIncrement)>>10;
     if ( roundBits ) {
         softFloat_exceptionFlags |= softFloat_flag_inexact;
-#ifdef softFloat_ROUND_ODD
+#ifdef SOFTFLOAT_ROUND_ODD
         if ( roundingMode == softFloat_round_odd ) {
             sig |= 1;
             goto packReturn;

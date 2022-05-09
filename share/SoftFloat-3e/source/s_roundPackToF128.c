@@ -139,7 +139,7 @@ float128_t
     *------------------------------------------------------------------------*/
     if ( sigExtra ) {
         softFloat_exceptionFlags |= softFloat_flag_inexact;
-#ifdef softFloat_ROUND_ODD
+#ifdef SOFTFLOAT_ROUND_ODD
         if ( roundingMode == softFloat_round_odd ) {
             sig0 |= 1;
             goto packReturn;

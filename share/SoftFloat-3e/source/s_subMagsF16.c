@@ -167,7 +167,7 @@ float16_t softFloat_subMagsF16( uint_fast16_t uiA, uint_fast16_t uiB )
         ) {
             --uiZ;
         }
-#ifdef softFloat_ROUND_ODD
+#ifdef SOFTFLOAT_ROUND_ODD
         else if ( roundingMode == softFloat_round_odd ) {
             uiZ = (uiZ - 1) | 1;
         }

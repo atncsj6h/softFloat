@@ -49,7 +49,7 @@ uint_fast64_t f64_to_ui64( float64_t a, uint_fast8_t roundingMode, bool exact )
     int_fast16_t exp;
     uint_fast64_t sig;
     int_fast16_t shiftDist;
-#ifdef softFloat_FAST_INT64
+#ifdef SOFTFLOAT_FAST_INT64
     struct uint64_extra sigExtra;
 #else
     uint32_t extSig[3];
@@ -66,7 +66,7 @@ uint_fast64_t f64_to_ui64( float64_t a, uint_fast8_t roundingMode, bool exact )
     *------------------------------------------------------------------------*/
     if ( exp ) sig |= UINT64_C( 0x0010000000000000 );
     shiftDist = 0x433 - exp;
-#ifdef softFloat_FAST_INT64
+#ifdef SOFTFLOAT_FAST_INT64
     if ( shiftDist <= 0 ) {
         if ( shiftDist < -11 ) goto invalid;
         sigExtra.v = sig<<-shiftDist;

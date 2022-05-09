@@ -175,7 +175,7 @@ extern const uint16_t softFloat_approxRecip_1k1s[16];
 | reciprocal 1/A, and it differs from the true reciprocal by at most 2.006 ulp
 | (units in the last place).
 *----------------------------------------------------------------------------*/
-#ifdef softFloat_FAST_DIV64TO32
+#ifdef SOFTFLOAT_FAST_DIV64TO32
 #define softFloat_approxRecip32_1( a ) ((uint32_t) (UINT64_C( 0x7FFFFFFFFFFFFFFF ) / (uint32_t) (a)))
 #else
 uint32_t softFloat_approxRecip32_1( uint32_t a );
@@ -207,10 +207,10 @@ extern const uint16_t softFloat_approxRecipSqrt_1k1s[16];
 uint32_t softFloat_approxRecipSqrt32_1( unsigned int oddExpA, uint32_t a );
 #endif
 
-#ifdef softFloat_FAST_INT64
+#ifdef SOFTFLOAT_FAST_INT64
 
 /*----------------------------------------------------------------------------
-| The following functions are needed only when 'softFloat_FAST_INT64' is
+| The following functions are needed only when 'SOFTFLOAT_FAST_INT64' is
 | defined.
 *----------------------------------------------------------------------------*/
 
@@ -613,7 +613,7 @@ void
 #else
 
 /*----------------------------------------------------------------------------
-| The following functions are needed only when 'softFloat_FAST_INT64' is not
+| The following functions are needed only when 'SOFTFLOAT_FAST_INT64' is not
 | defined.
 *----------------------------------------------------------------------------*/
 
